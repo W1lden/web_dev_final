@@ -18,4 +18,3 @@ class CourseDetailAPIView(APIView):
             return Response(serializer.data)
         except Course.DoesNotExist:
             return Response({'error': 'Course not found'}, status=status.HTTP_404_NOT_FOUND)
-
