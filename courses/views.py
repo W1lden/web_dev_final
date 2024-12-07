@@ -1,6 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import View
-from .models import Course
+from rest_framework import viewsets
+from .models import Course, User
+from .serializers import CourseSerializer, UserSerializer
+
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class CourseListView(View):
     def get(self, request):
