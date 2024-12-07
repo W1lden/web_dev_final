@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses</title>
 </head>
 <body>
     <h1>Available Courses</h1>
     <ul>
         {% for course in courses %}
-            <li>{{ course.title }} - ${{ course.price }}</li>
+            <li>
+                <a href="{% url 'course_detail' course.id %}">
+                    {{ course.title }} - ${{ course.price }}
+                </a>
+            </li>
         {% endfor %}
     </ul>
 </body>
