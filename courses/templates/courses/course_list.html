@@ -9,11 +9,17 @@
     <h1>Available Courses</h1>
     <ul>
         {% for course in courses %}
-            <li>
-                <a href="{% url 'course_detail' course.id %}">
-                    {{ course.title }} - ${{ course.price }}
-                </a>
-            </li>
+            {% if course.course_id %}
+                <li>
+                    <a href="{% url 'course_detail' course.course_id %}">
+                        {{ course.title }} - ${{ course.price }}
+                    </a>
+                </li>
+            {% else %}
+                <li>
+                    {{ course.title }} (ID not available)
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 </body>
