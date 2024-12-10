@@ -6,13 +6,12 @@ from .models import (
 from .forms import UserCreationForm, UserForm
 
 class UserAdmin(admin.ModelAdmin):
-    form = UserForm  # Форма для редактирования существующих пользователей
-    add_form = UserCreationForm  # Форма для создания новых пользователей
+    form = UserForm
+    add_form = UserCreationForm
 
     list_display = ('username', 'email', 'is_student', 'is_instructor')
 
     def get_form(self, request, obj=None, **kwargs):
-        """Используем разные формы для добавления и изменения пользователей."""
         if obj is None:
             kwargs['form'] = self.add_form
         else:
@@ -20,7 +19,6 @@ class UserAdmin(admin.ModelAdmin):
         return super().get_form(request, obj, **kwargs)
 
     def get_fieldsets(self, request, obj=None):
-        """Определяем разные наборы полей для добавления и редактирования."""
         if obj is None:
             return [
                 (None, {
@@ -35,8 +33,6 @@ class UserAdmin(admin.ModelAdmin):
             ]
 
 admin.site.register(User, UserAdmin)
-
-# Регистрация остальных моделей
 admin.site.register(Category)
 admin.site.register(Course)
 admin.site.register(Lesson)

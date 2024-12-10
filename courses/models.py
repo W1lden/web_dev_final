@@ -19,9 +19,8 @@ class User(models.Model):
         return self.username
 
 
-# Категории
 class Category(models.Model):
-    category_id = models.AutoField(primary_key=True)  # Первичный ключ
+    category_id = models.AutoField(primary_key=True)  
     name = models.CharField(max_length=100)
     description = models.TextField()
 
@@ -29,23 +28,22 @@ class Category(models.Model):
         return self.name
 
 
-# Курсы
 class Course(models.Model):
-    course_id = models.AutoField(primary_key=True)  # Первичный ключ
+    course_id = models.AutoField(primary_key=True)  
     title = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    instructor = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'is_instructor': True})
+    instructor = models.ForeignKey(User, on_delete=models.CASCADE, 
+    limit_choices_to={'is_instructor': True})
 
     def __str__(self):
         return self.title
 
 
-# Уроки
 class Lesson(models.Model):
-    lesson_id = models.AutoField(primary_key=True)  # Первичный ключ
+    lesson_id = models.AutoField(primary_key=True)  
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     content = models.TextField()
@@ -54,10 +52,8 @@ class Lesson(models.Model):
     def __str__(self):
         return self.title
 
-
-# Зачисления
 class Enrollment(models.Model):
-    enrollment_id = models.AutoField(primary_key=True)  # Первичный ключ
+    enrollment_id = models.AutoField(primary_key=True)  
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     enrollment_date = models.DateField(auto_now_add=True)
@@ -67,9 +63,9 @@ class Enrollment(models.Model):
         return f"{self.user.username} -> {self.course.title}"
 
 
-# Отзывы
+
 class Review(models.Model):
-    review_id = models.AutoField(primary_key=True)  # Первичный ключ
+    review_id = models.AutoField(primary_key=True) 
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField()
@@ -80,9 +76,8 @@ class Review(models.Model):
         return f"Review by {self.user.username} for {self.course.title}"
 
 
-# Платежи
 class Payment(models.Model):
-    payment_id = models.AutoField(primary_key=True)  # Первичный ключ
+    payment_id = models.AutoField(primary_key=True)  
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_date = models.DateField(auto_now_add=True)
@@ -91,10 +86,8 @@ class Payment(models.Model):
     def __str__(self):
         return f"Payment by {self.user.username}"
 
-
-# Викторины
 class Quiz(models.Model):
-    quiz_id = models.AutoField(primary_key=True)  # Первичный ключ
+    quiz_id = models.AutoField(primary_key=True)  
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     total_marks = models.IntegerField()
@@ -102,10 +95,8 @@ class Quiz(models.Model):
     def __str__(self):
         return self.title
 
-
-# Вопросы к викторинам
 class QuizQuestion(models.Model):
-    question_id = models.AutoField(primary_key=True)  # Первичный ключ
+    question_id = models.AutoField(primary_key=True)  
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     question_text = models.TextField()
     option_a = models.CharField(max_length=200)
@@ -118,9 +109,8 @@ class QuizQuestion(models.Model):
         return f"Question for {self.quiz.title}"
 
 
-# Прогресс пользователя
 class UserProgress(models.Model):
-    progress_id = models.AutoField(primary_key=True)  # Первичный ключ
+    progress_id = models.AutoField(primary_key=True)  
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     completed_lessons = models.IntegerField(default=0)

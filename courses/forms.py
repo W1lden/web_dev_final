@@ -17,7 +17,6 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 class UserForm(forms.ModelForm):
-    # Поле пароля не включаем в форму редактирования
     class Meta:
         model = User
         fields = ('username', 'email', 'is_student', 'is_instructor')
